@@ -1,3 +1,4 @@
+
 class BooksController < ApplicationController
   def top
   end
@@ -20,14 +21,17 @@ class BooksController < ApplicationController
     if book.update(book_params)
       redirect_to book_path, notice:"successfully"
     end
-
   end
-
 
   def create
     book = Book.new(book_params)
     if book.save
-      redirect_to book_path(book), notice:"successfully"
+      redirect_to book, notice:"successfully"
+    else
+      @books = Book.all
+      @book = book
+
+      render :index
     end
   end
 
